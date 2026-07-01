@@ -1,74 +1,128 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bernes NDOUSSY | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bernes-NDOUSSY.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="app">
 
-    <header class="navbar">
-        <div class="logo">Bernes</div>
-        <nav>
-            <ul>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <div class="spotlight" id="spotlight"></div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Bonjour, je suis <span class="highlight">Bernes NDOUSSY</span></h1>
-            <p>Développeur passionné & Créateur de solutions numériques</p>
-            <a href="https://github.com/Kenzus241" target="_blank" class="btn">Mon GitHub</a>
-        </div>
-    </section>
+  <canvas class="webgl" id="webgl"></canvas>
 
-    <section id="about" class="about">
-        <h2>À propos de moi</h2>
-        <div class="about-text">
-            <p>Bienvenue sur mon <strong>Portfolio</strong>. </p>
-            <p><strong>Hard Skills :</strong> HTML, CSS, Python, C, SQL, Git & GitHub, et bien plus à venir !</p>
-        </div>
-    </section>
+  
+  <a class="ui brand" href="#" aria-label="home">
+    <img src="assets/logo.png" alt="Kenzus">
+  </a>
 
-    <section id="projects" class="projects">
-        <h2>Mes Projets Récents</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <h3>Tardis</h3>
-                <p>Description: Projet de Data/AI.</p>
-                <a href="https://github.com/Kenzus241/Tardis" target="_blank" class="project-link">Voir le dépôt →</a>
-            </div>
+  <button class="ui menu-btn" id="menu-open">menu <span class="dot"></span></button>
 
-            <div class="project-card">
-                <h3>S.D.V.T.P</h3>
-                <p>Description: utilitaire en C</p>
-                <a href="https://github.com/Kenzus241/S.D.V.T.P" target="_blank" class="project-link">Voir le dépôt →</a>
-            </div>
+  <button class="ui sound-btn is-muted" id="sound-btn" aria-label="toggle sound">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+      <path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7"/>
+      <path class="wave" d="M18.5 5.5a9 9 0 0 1 0 13"/>
+    </svg>
+  </button>
 
-            <div class="project-card">
-                <h3>MODIBO-Music</h3>
-                <p>Un autre projet clé développé ou mis à jour récemment sur ton profil.</p>
-                <a href="https://github.com/Kenzus241/MODIBO-Music" target="_blank" class="project-link">Voir le dépôt →</a>
-            </div>
-        </div>
-    </section>
+  <div class="ui switch" role="tablist">
+    <button id="btn-spiral" class="is-active">spirale</button>
+    <span class="sep"></span>
+    <button id="btn-list">liste</button>
+  </div>
 
-    <footer id="contact" class="footer">
-        <h2>Me Contacter</h2>
-        <p>Tu as un projet en tête ou tu souhaites simplement échanger ?</p>
-        <div class="social-links">
-            <a href="https://github.com/Kenzus241" target="_blank">GitHub</a>
-            <a href="mailto:ndoussybernes@gmail.com">Email</a>
-        </div>
-        <p class="credits">© 2026 Kenzus241. Tous droits réservés.</p>
-    </footer>
+  
+  <div class="tooltip" id="tooltip"><img id="tooltip-img" alt=""><span id="tooltip-name"></span></div>
 
+  
+  <div id="listview"></div>
+
+  
+  <aside id="menu">
+    <div class="menu-head">
+      <span>fermer</span>
+      <button class="close-btn" id="menu-close">✕</button>
+    </div>
+    <nav>
+      <a href="#" data-close>Projets</a>
+      <a href="#" data-panel="resume">Résumé</a>
+      <a href="#" data-close>contacte</a>
+    </nav>
+    <div class="menu-foot">
+      <a class="mail" href="mailto:ndoussybernes@gmail.com">ndoussybernes@gmail.com</a>
+      <div class="socials">
+        <a href="https://www.instagram.com/__kenzus__/" aria-label="instagram">ig</a>
+        <a href="https://github.com/Kenzus241" aria-label="Git">Git</a>
+        <a href="https://www.linkedin.com/in/bernes-n-304b95354/" aria-label="linkedin">in</a>
+      </div>
+    </div>
+  </aside>
+
+  <section id="project">
+    <div class="proj-hero" id="proj-hero">
+      <button class="proj-close" id="proj-close">✕</button>
+    </div>
+    <div class="proj-body">
+      <h2 id="proj-title">Project</h2>
+      <div class="proj-info">
+        <p id="proj-desc"></p>
+        <button class="pill-btn">see the case <span class="dot"></span></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="panel" aria-labelledby="resume-title">
+    <button class="panel-close" data-close-panel aria-label="fermer">✕</button>
+    <div class="panel-body">
+      <p class="panel-kicker">Profil</p>
+      <h2 id="resume-title">Résumé</h2>
+      <p class="panel-lead">
+        Etudiant à EPITECH, je suis un développeur passionné par les défis technique et les domaines de la data et de l'ia
+      </p>
+
+      <div class="resume-grid">
+        <article>
+          <span>01</span>
+          <h3>Compétences</h3>
+          <p>HTML, CSS, JavaScript, Python, C, Typescript.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Expérience</h3>
+          <p>Création de portfolios, projets interactifs, prototypes front-end et identités web.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Loisirs</h3>
+          <p>BasketBall, course à pied, jeux vidéos, écouter de la musique(en faire parfois...) et profiter de la vie.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Objectif</h3>
+          <p>Construire des expériences numériques qui mélangent technique, direction artistique et clarté.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  <div id="intro">
+    <img class="intro-logo" src="assets/logo_K.png" alt="Kenzus">
+    <h1 class="display">Kenzus <br><em>Portfolio</em></h1>
+    <button class="pill-btn" id="enter-sound">entrer avec le son <span class="dot"></span></button>
+    <button id="enter-muted">entrer sans le son</button>
+  </div>
+
+</div>
+
+
+<script src="script.js"></script>
 </body>
 </html>
